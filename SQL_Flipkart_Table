@@ -1,0 +1,18 @@
+create table (flipkart
+       Order_ID               int primary key ,
+       Order_Date             datetime,
+       Customer_Name          varchar(30),
+       City                   varchar(30),
+       Country                varchar(30),
+       State                  varchar(30),
+       Region                 varchar(30),
+       Segment                varchar(30),
+       Ship_Mode              varchar(30),
+       Category               varchar(30),
+       Sub_Category           varchar(30),
+       Product_Name           varchar(30),
+       Cost                   int ,
+       Sales                  int ,
+       Profit                 int ,
+       Quantity               int ,
+);
