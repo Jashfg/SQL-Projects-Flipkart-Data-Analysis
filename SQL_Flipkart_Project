@@ -1,0 +1,152 @@
+#sum of sales and profut  by sub_category TOP 5 ::
+SELECT SUM(sales) AS total_sales, SUM(profit) AS total_profit, sub_category
+FROM flipkart
+GROUP BY sub_category
+ORDER BY total_sales DESC limit 5;
+
+#Retrieve all columns for orders shipped to the city "stockholm" :::
+select * from flipkart where 
+city="stockholm";
+
+#List the top 5 customers with the highest quantity of products purchased:::
+select customer_name , sum(quantity) as total_quantity from flipkart
+group by customer_name order by total_quantity desc limit 5;
+
+#Retrieve the products with a profit greater than $100:
+select product_name , profit from flipkart 
+where profit>100 order by profit desc;
+
+#Calculate the average sales per order:
+select avg(sales) as  AverageSalesPerOrder  from flipkart;
+
+#Find the total sales for each region, sorted in descending order:
+select sum(sales)  as total_sales , region from flipkart 
+group by region order by total_sales desc;
+
+#Count the number of orders for each ship mode:
+select count(order_id) as number_of_orders , ship_mode from flipkart
+group by ship_mode order  by number_of_orders desc;
+
+#Retrieve the products with the highest quantity sold in each category:
+select max(quantity) , product_name , category from flipkart
+group by product_name , category order by max(quantity) desc;
+
+#retrieve the TOP five highest customers sales::
+select customer_name , sum(sales) as total_sales  from flipkart
+group by customer_name order by total_sales desc ;
+
+#Find the total sales and profit for each region::
+select sum(sales) as total_sales ,sum(profit)as total_profit , region from flipkart
+group by region order by sum(sales) desc ,sum(profit) desc ;
+
+#Retrieve the top 3 products with the highest profit margin (Profit divided by Cost):
+select product_name , (profit/cost) as profit_margin from flipkart
+order by profit_margin desc limit 3;
+
+#Calculate the average quantity of products sold per order:::
+select avg(quantity) as avg_quantity_per_order from flipkart;  
+
+#List the customers who made purchases in more than one category:
+select customer_name from flipkart 
+group by customer_name having count(distinct category)>2;
+
+#Find the most common ship mode used by customers in each region:
+select ship_mode , region , count(*) as ship_mode_count from flipkart
+group by ship_mode,region order by ship_mode_count desc;
+
+#Retrieve the products with a profit greater than the average profit::
+select product_name , profit from flipkart
+where profit > (select avg(profit) from flipkart) order by profit desc;
+
+#Retrieve all columns for orders with a sales value greater than $1000:::
+select sales from flipkart 
+where sales>1000;
+
+#Find the total profit for each category in the 'North' region:
+select sum(profit) as total_profit , category from flipkart
+ where region="north" group by category order by total_profit desc;
+
+#Retrieve orders where the quantity is greater than 10 and the profit is negative:
+select quantity , profit from flipkart
+where quantity>10 and profit<0;
+
+#Calculate the average sales and profit for each segment::
+select  segment as each_segment ,avg(sales) , avg(profit) from flipkart
+group by each_segment order by avg(sales) desc,avg(profit) desc;
+
+#Find the products with a profit margin (Profit divided by Cost) greater than 0.2:::
+select product_name ,  (profit/cost) as profit_margin from flipkart
+where (profit/cost)>0.2
+
+#Retrieve the orders placed in 'New York' or 'San Francisco':::
+select * from flipkart
+where city in ("paris" , "london");
+
+#fetch the total orders in the each country
+select count(order_id) as total_orders , country from flipkart
+group by country order by total_orders desc;
+
+#customer having more than 10 orders
+select customer_name , count(*) from flipkart
+group by customer_name having count(*)>10;
+
+#Find orders with a profit higher than the average profit across all orders:::
+select order_id,profit from flipkart
+where profit>(select avg(profit) from flipkart) order by profit desc;
+
+#Retrieve orders for customers residing in the same city as a particular customer:
+select order_id,customer_name ,city from flipkart
+where city in (select city  from flipkart where customer_name="ruby patel");
+
+#Calculate the total sales for each category, along with the average profit margin within each category:
+select sum(sales) as total_sales , category , avg(profit/cost) as avg_profit_margin from flipkart
+group by category;
+
+# List customers who have ordered products from both the 'Furniture' and 'technology' categories:
+SELECT Customer_Name,category
+FROM flipkart
+WHERE Customer_Name IN (
+    SELECT Customer_Name FROM flipkart WHERE Category = 'Furniture'
+) or Customer_Name IN (
+    SELECT Customer_Name FROM flipkart WHERE Category = 'Electronics'
+);
+
+##Identify customers who have placed orders in multiple regions:::
+select customer_name,count(distinct region) as total_num from flipkart
+group by customer_name having count(distinct region )>1;
+
+#Find customers who have placed orders with a total sales amount greater than the average sales amount:
+select customer_name , sales from flipkart 
+where sales >(select avg(sales) from flipkart) order by sales desc;
+
+#Identify products that have been ordered more than once:
+select product_name from flipkart
+where product_name  in (select product_name from flipkart group by product_name having  count(product_name)>1);
+
+#Find the product ordered multiple times 
+select count(order_id)  as total_orders , product_name from flipkart 
+group by product_name order by total_orders desc;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
