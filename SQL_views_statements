@@ -1,0 +1,19 @@
+#select customers who are ordered in the city="london"::
+select customer_name , city from flipkart
+where city="london";
+
+#The following SQL creates a view that shows all customers who are ordered from city="london"::
+create view city_london as 
+select customer_name , city from flipkart
+where city="london";
+select * from city_london;
+
+#The following SQL creates a view that shows Total sum of sales from the each country::
+create view total_sales_country as 
+select max(sales) as total_sales  , country from flipkart
+group by country order by total_sales desc;
+select * from total_sales_country;
+
+
+drop view total_sales_country;
+select * from total_sales_country;
